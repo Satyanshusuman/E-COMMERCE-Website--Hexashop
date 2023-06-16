@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/cart.css">
+<body class="p-5">
+    <section class="h-100 gradient-custom">
+        <div class="container my-5 p-5">        
+            <div class="row ">
+                <h1><b class="text-capitalize"> Welcome {{request.user}}</b></h1>
+                <div class="col-sm-3 border-end">
+                    
+                    <!-- <img class="rounded-circle " src="" style="width: 125px;height: 125px;padding: 5px;">
+                     -->
+                    <ul class="list-unstyled">
+                        <li class="d-grid"><a href="/Cust/profile" class="btn {{active}}"> Customer details</a></li>
+                        <li class="d-grid p-3"><a href="/Cust/address" class="btn">Addresses</a></li>
+                        <li class="d-grid p-3"><a href="/orderhist" class="btn">Order history</a></li>
+                    </ul>
+                </div>
+                
+                <div class="card-body offset-sm-1">
+                    <form action="" method="post" class="">
+                        {% csrf_token %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p {% if message.tags %} class=" alert alert-{{message.tags}}"mb-5 {% endif %}>
+                                    {{message}}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
+                      
+                            {%for fm in form %}
+                                <div class="col-12 p-3">
+                                    {{fm.label_tag}} {{fm}} 
+                                    <small class="text-danger">{{fm.errors|striptags}}</small>
+                                </div>
+                            {% endfor %}
+                        
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-warning">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock %}

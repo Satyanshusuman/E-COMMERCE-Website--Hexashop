@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Hexashop Ecommerce</title>
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css">
+
+    <link rel="stylesheet" href="/static/css/templatemo-hexashop.css">
+
+    <link rel="stylesheet" href="/static/css/owl-carousel.css">
+
+    <link rel="stylesheet" href="/static/css/lightbox.css">
+    
+    </head>
+    
+    
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <nav class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="/" class="logo">
+                            <img src="/static/images/logo.png">
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                        {% if user.is_authenticated %}
+                            <li class="scroll-to-section"><a href="/">Home</a></li>
+                            <li class="submenu">
+                                <a href="javascript:;">{{request.user}}</a>
+                                <ul>
+                                    <li><a href="/Cust/profile/">Profile</a></li>
+                                    <li><a href="/Cust/passwchange/">Change Password</a></li>
+                                    <li><a href="/orderhist/">Order history</a></li>
+                                    <li><a href="/Cust/logout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <i class="fa fa-shopping-cart" style="font-size: 24px;color: black;"> <a href="/showcart/">Cart</a></i>
+                            </li>
+                        {% else %}
+                            <li class="scroll-to-section"><a href="/">Home</a></li>
+                                <li><a href="/Cust/registration/">Registration</a></li>
+                                <li><a href="/Cust/login/">Login</a></li>
+                            </li>
+                                                       
+                        {% endif %}
+                        
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/products/">Products</a></li>
+                        <li><a href="/contact/">Contact Us</a></li>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- ***** Header Area End ***** -->

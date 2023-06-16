@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/cart.css">
+<section class="h-100 gradient-custom">
+<div class="container py-5">
+    <div class="row mt-5 py-5">
+     <div class="col-sm-6">
+       <h3>Order Summary</h3>
+       <hr>
+       {% for cart in carts %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <div  class="row">
+                    <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                       <img src="{{cart.product.image.url}}" style="width: 100px;"/> 
+                    </div> 
+                    <div class="col-md-8 ">
+                        <h5>Product: {{cart.product.title}}</h5>
+                        <p>Quantity: {{cart.quantity}}</p>
+                        <p class="fw-bold">Price: {{cart.total_cost}}</p>
+                    </div>   
+                </div>
+            </div>
+        </div>
+        {% endfor %}    
+        <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil in et quis?</small>   
+        <hr style= "color:black;">
+        <div class="card mb-2">
+            <div class="card-body">
+                <b>overall cost : Rs {{overall_cost}}</b>
+                <p>shipping cost: Rs 70 </p>
+                <hr>
+                <b>Total cost: Rs {{total_amount}}</b>
+            </div>
+        </div>
+    </div>
+  
+     <div class="col-sm-4 offset-sm-1">
+       <h3>Select Shipping Address</h3>
+       <hr>
+{% for cust in custs %}
+       <form action="/payment" id="orderhistform" method="get">
+         <div class="card">
+           <div class="card-body">
+           <h5>{{cust.name}}</h5>
+           <p>{{cust.locality}} {{cust.city}}</p>
+           <p>{{cust.state}}</p>
+           <p>zipcode: {{cust.zipcode}}</p>
+           </div>
+         </div>
+           <div class="form-check mt-2 mb-5">
+             <input class="form-check-input" name="custid"  type="radio" id="cust{{forloop.counter}}"value="{{cust.id}}">
+             <label class="form-check-label fw-bold" for="cust{{forloop.counter}}">
+               Address: {{forloop.counter}} </label>
+           </div>
+{% endfor %}
+           <!-- <div class="text-end">
+             <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>
+           </div> -->
+           <div id="paypal-button-container"></div>
+        </form>
+       </div>
+     </div>
+   </div>
+</section>
+<script src="https://www.paypal.com/sdk/js?client-id=AWIDtFK3yprg99pODqgosjrrXORy-3ygLeWGfJh47TZi2vR2U9qa-YYfAvN_J7Brck3yMl1V6NYZ-v5H&currency=USD"></script>
+<script>
+paypal.Buttons({
+// Call your server to set up the transaction
+createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units:[{
+
+            amount:{
+                value:"{{total_amount}}"
+            }
+        }]
+      });
+        },
+
+// finalize the transaction
+onApprove: function(data, actions) {
+    return actions.order.capture().then(function
+        (details)
+        {
+            alert ("Teansaction completed by " + 
+            details.payer.name.given_name + " !");
+            document.getElementById("orderhistform").submit();
+        });
+
+    }
+}).render('#paypal-button-container');
+</script>
+
+{% endblock %}

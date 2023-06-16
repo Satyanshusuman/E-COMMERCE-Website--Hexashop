@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/cart.css">
+<body class="p-5">
+    <section class="h-100 gradient-custom">
+        <div class="container my-5 p-5">        
+            <div class="row ">
+                <h1><b class="text-capitalize"> Welcome {{request.user}}</b></h1>
+                <div class="col-sm-3 border-end">    
+                   <ul class="list-unstyled">
+                        <li class="d-grid"><a href="/Cust/profile" class="btn ">customer Details</a></li>
+                        <li class="d-grid p-3"><a href="/Cust/address" class="btn {{active}}">Addresses</a></li>
+                    </ul>
+                </div>
+                {% for cust in customer %}
+                <div class="card-body offset-sm-1" style="width: 500px;">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>Address{{forloop.counter}}</h3>
+                                    <p><b>Name: {{cust.name}}</b></p>
+                                    <p><b>Locality:{{cust.locality}}</b></p>
+                                    <p><b>City: {{cust.city}}</b></p>
+                                    <p><b>State: {{cust.state}}</b></p>
+                                    <p><b>Zipcode: {{cust.zipcode}}</b></p>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock %}
