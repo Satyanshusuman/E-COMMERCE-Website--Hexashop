@@ -83,7 +83,7 @@ onApprove: function(data, actions) {
     return actions.order.capture().then(function
         (details)
         {
-            alert ("Teansaction completed by " + 
+            alert ("Transaction completed by " + 
             details.payer.name.given_name + " !");
             document.getElementById("orderhistform").submit();
         });

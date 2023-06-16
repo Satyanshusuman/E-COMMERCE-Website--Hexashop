@@ -129,3 +129,4 @@ MEDIA_ROOT= BASE_DIR/"media"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL="/Cust/login/"
+SECURE_CROSS_ORIGIN_OPENER_POLICY="same-origin-allow-popups"
