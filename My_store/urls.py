@@ -33,8 +33,6 @@ urlpatterns = [
     path('checkout/', checkout),
     path('payment/',payment_done),
     path('orderhist/', orderhistory),
-
-
-
     ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
+urlpatterns+= static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
