@@ -65,9 +65,9 @@ def minus_cart(request):
     cart=Cart.objects.get(Q(product=prod_id) & Q(user=request.user) )
     if cart:
         cart.quantity-=1
-        cart.save()
 
-    if cart.quantity != 0:   
+    if cart.quantity != 0:
+        cart.save()   
         cart_product=Cart.objects.filter(user=request.user)
         overallcost=0
         shippingcost=70
