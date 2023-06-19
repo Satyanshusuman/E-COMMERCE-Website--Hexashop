@@ -63,25 +63,24 @@ def plus_cart(request):
 def minus_cart(request):
     prod_id=request.GET["prod_id"]
     cart=Cart.objects.get(Q(product=prod_id) & Q(user=request.user) )
-    cart.quantity-=1
-    cart.save()
-    if cart.quantity==0:
-        cart.delete()
-        
-    cart_product=Cart.objects.filter(user=request.user)
-    overallcost=0
-    shippingcost=70
-    total_qty=0
-    for p in cart_product:
-        temp_cost= p.quantity * p.product.discounted_price
-        overallcost += temp_cost
-        total_qty += p.quantity
-    total_cost=overallcost + shippingcost
-    data={"amount":overallcost,
-        "totalamount":total_cost,
-        "total_qty":total_qty}
-    return JsonResponse(data)
+    if cart:
+        cart.quantity-=1
+        cart.save()
 
+    if cart.quantity != 0:   
+        cart_product=Cart.objects.filter(user=request.user)
+        overallcost=0
+        shippingcost=70
+        total_qty=0
+        for p in cart_product:
+            temp_cost= p.quantity * p.product.discounted_price
+            overallcost += temp_cost
+            total_qty += p.quantity
+        total_cost=overallcost + shippingcost
+        data={"amount":overallcost,
+            "totalamount":total_cost,
+            "total_qty":total_qty}
+        return JsonResponse(data)
 @login_required
 def delete_cart(request):
     prod_id=request.GET["prod_id"]
